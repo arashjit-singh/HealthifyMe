@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -53,10 +55,13 @@ fun NutrientGoalScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
-            .padding(24.dp),
+
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(24.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -104,7 +109,9 @@ fun NutrientGoalScreen(
         ActionButton(buttonText = stringResource(R.string.next),
             buttonColor = ButtonDefaults.buttonColors(Color(0XFF00C713)),
             textColor = Color.White,
-            modifier = Modifier.align(alignment = Alignment.BottomEnd),
+            modifier = Modifier
+                .align(alignment = Alignment.BottomEnd)
+                .padding(24.dp),
             onClick = {
                 viewModel.navigate()
             })
