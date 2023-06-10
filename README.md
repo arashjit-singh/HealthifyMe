@@ -10,7 +10,7 @@ Clone the project from android studio after enabling VCS, and click on the run b
 
 # Application Screenshots
  
- [Landing Page](https://github.com/arashjit-singh/HealthifyMe/blob/main/Screenshots/LandingPage.png)
+ ![Landing Page](https://github.com/arashjit-singh/HealthifyMe/blob/main/Screenshots/LandingPage.png)
 ![Gender Selection Page](https://github.com/arashjit-singh/HealthifyMe/blob/main/Screenshots/GenderSelection.png)
 ![EnterWeightScreen](https://github.com/arashjit-singh/HealthifyMe/blob/main/Screenshots/EnterWeightScreen.png)
 ![EnterHeight](https://github.com/arashjit-singh/HealthifyMe/blob/main/Screenshots/EnterHeight.png)
