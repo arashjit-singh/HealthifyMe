@@ -73,6 +73,15 @@ dependencies {
     //view model dependency
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 
+    //retrofit dependency
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    //gson convertor factory
+    implementation "com.squareup.retrofit2:converter-gson:$gson_convertor_factory"
+    implementation "com.squareup.okhttp3:logging-interceptor:$http_logging_interceptor"
+
+    //image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 

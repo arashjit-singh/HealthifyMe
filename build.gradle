@@ -10,4 +10,7 @@ ext{
     hiltVersion = "2.44.2"
     timberVersion="5.0.1"
     nav_version = "2.6.0"
+    retrofit_version = '2.9.0'
+    gson_convertor_factory = '2.9.0'
+    http_logging_interceptor = '4.11.0'
 }

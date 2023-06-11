@@ -21,4 +21,6 @@
     <string name="loose">Loose</string>
     <string name="keep">Keep</string>
     <string name="gain">Gain</string>
+    <string name="add_breakfast">Add Breakfast</string>
+    <string name="hint_search">Search..</string>
 </resources>

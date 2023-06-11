@@ -20,6 +20,7 @@ import com.healthifyme.ui.screens.onboarding.height.HeightScreen
 import com.healthifyme.ui.screens.onboarding.nutrient_goal.NutrientGoalScreen
 import com.healthifyme.ui.screens.onboarding.weight.WeightScreen
 import com.healthifyme.ui.screens.onboarding.welcome.WelcomeScreen
+import com.healthifyme.ui.screens.search.SearchScreen
 import com.healthifyme.ui.theme.HealthifyMeTheme
 import com.healthifyme.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,8 @@ class OnboardActivity : ComponentActivity() {
                     // Screen content
                     Box(modifier = Modifier.padding(innerPadding)) {
                         NavHost(
-                            navController = navController, startDestination = Routes.ROUTE_WELCOME
+                            navController = navController,
+                            startDestination = Routes.ROUTE_SEARCH_FOOD
                         ) {
                             composable(Routes.ROUTE_WELCOME) {
                                 WelcomeScreen() {
@@ -72,6 +74,9 @@ class OnboardActivity : ComponentActivity() {
                             }
                             composable(Routes.ROUTE_NUTRITION_ROUTE) {
                                 NutrientGoalScreen(snackbarHostState)
+                            }
+                            composable(Routes.ROUTE_SEARCH_FOOD) {
+                                SearchScreen(snackbarHostState)
                             }
                         }
                     }
