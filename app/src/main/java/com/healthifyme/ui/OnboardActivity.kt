@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.healthifyme.ui.screens.home_screen.HomeScreen
 import com.healthifyme.ui.screens.onboarding.gender.GenderSelectionScreen
 import com.healthifyme.ui.screens.onboarding.goal.GoalScreen
 import com.healthifyme.ui.screens.onboarding.height.HeightScreen
@@ -45,7 +46,7 @@ class OnboardActivity : ComponentActivity() {
                     Box(modifier = Modifier.padding(innerPadding)) {
                         NavHost(
                             navController = navController,
-                            startDestination = Routes.ROUTE_SEARCH_FOOD
+                            startDestination = Routes.ROUTE_HOME_SCREEN
                         ) {
                             composable(Routes.ROUTE_WELCOME) {
                                 WelcomeScreen() {
@@ -77,6 +78,9 @@ class OnboardActivity : ComponentActivity() {
                             }
                             composable(Routes.ROUTE_SEARCH_FOOD) {
                                 SearchScreen(snackbarHostState)
+                            }
+                            composable(Routes.ROUTE_HOME_SCREEN) {
+                                HomeScreen()
                             }
                         }
                     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -45,7 +46,7 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
             model = ImageRequest.Builder(LocalContext.current).data(
                 item.imageUrl
             ).build(),
-            contentDescription = "Product Image",
+            contentDescription = item.productName,
             modifier = Modifier
                 .size(75.dp)
                 .fillMaxHeight(),
@@ -56,17 +57,17 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1.0f)
-                .padding(start = 20.dp),
+                .padding(start = 20.dp, end = 10.dp),
         ) {
             Row(modifier = Modifier.padding(bottom = 10.dp)) {
                 Text(
                     text = item.productName, modifier = Modifier
-                        .weight(1.0f)
-                        .fillMaxWidth(),
+                        .fillMaxWidth(0.5f),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Bold
                 )
-                Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = "${item.caloriesPer100g} g",
                         textAlign = TextAlign.Center
@@ -84,24 +85,25 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
             Row() {
                 Text(
                     text = "${item.caloriesPer100g}kcal/100g", modifier = Modifier
-                        .weight(1.0f)
-                        .fillMaxWidth()
+                        .fillMaxWidth(0.5f)
                 )
-                Text(
-                    text = "Carbs",
-                    modifier = Modifier.defaultMinSize(minWidth = 40.dp),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "Protein",
-                    modifier = Modifier.defaultMinSize(minWidth = 40.dp),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "Fat",
-                    modifier = Modifier.defaultMinSize(minWidth = 40.dp),
-                    textAlign = TextAlign.Center
-                )
+                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = "Carbs",
+                        modifier = Modifier.defaultMinSize(minWidth = 40.dp),
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = "Protein",
+                        modifier = Modifier.defaultMinSize(minWidth = 40.dp),
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = "Fat",
+                        modifier = Modifier.defaultMinSize(minWidth = 40.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

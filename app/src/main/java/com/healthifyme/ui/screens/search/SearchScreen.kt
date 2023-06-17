@@ -56,6 +56,7 @@ fun SearchScreen(
             }
         }
     }
+
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
             viewModel.state.isSearching -> CircularProgressIndicator()
