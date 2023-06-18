@@ -13,4 +13,5 @@ ext{
     retrofit_version = '2.9.0'
     gson_convertor_factory = '2.9.0'
     http_logging_interceptor = '4.11.0'
+    room_version = "2.5.1"
 }

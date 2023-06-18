@@ -23,4 +23,16 @@
     <string name="gain">Gain</string>
     <string name="add_breakfast">Add Breakfast</string>
     <string name="hint_search">Search..</string>
+    <string name="your_goal">Your Goal :</string>
+    <string name="kcal">Kcal</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat</string>
+    <string name="unit_carbs">Carbs</string>
+    <string name="prev_day">Prev Day</string>
+    <string name="next_day">Next Day</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="snacks">Snacks</string>
+    <string name="no_food">No Food</string>
 </resources>

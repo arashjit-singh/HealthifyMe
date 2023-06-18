@@ -5,15 +5,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.healthifyme.data.FoodRepository
+import com.healthifyme.data.mapper.toFoodEntity
 import com.healthifyme.data.remote.repository.SearchRepository
+import com.healthifyme.domain.TrackableFood
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchScreenViewModel @Inject constructor(val searchRepository: SearchRepository) :
-    ViewModel() {
+class SearchScreenViewModel @Inject constructor(
+    private val searchRepository: SearchRepository,
+    private val foodRepository: FoodRepository
+) : ViewModel() {
 
     var state by mutableStateOf(SearchState())
         private set
@@ -32,18 +37,28 @@ class SearchScreenViewModel @Inject constructor(val searchRepository: SearchRepo
     fun searchFood() {
         Timber.i("Searching.. ${userInput}")
         viewModelScope.launch {
-
             state = state.copy(
-                trackableFood = emptyList(),
-                isSearching = true
+                trackableFood = emptyList(), isSearching = true
             )
-
             searchRepository.searchFood(userInput, 1, 20).onSuccess { data ->
                 state = state.copy(
-                    trackableFood = data,
-                    isSearching = false,
-                    query = ""
+                    trackableFood = data, isSearching = false, query = ""
                 )
+            }
+        }
+    }
+
+    fun addItemToDatabase(foodItem: TrackableFood, mealType: Int, quantity: Int) {
+        viewModelScope.launch {
+            foodRepository.insertFood(foodItem.toFoodEntity(mealType, quantity))
+        }
+    }
+
+    fun getAllFoods(mealType: Int) {
+        viewModelScope.launch {
+            foodRepository.getAllFoods(mealType).collect { it ->
+                Timber.i("mealType : ${mealType} : ", it.toString())
+                Timber.i(it.toString())
             }
         }
     }

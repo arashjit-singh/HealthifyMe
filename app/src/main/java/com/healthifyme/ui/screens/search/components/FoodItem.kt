@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +35,11 @@ import com.healthifyme.domain.TrackableFood
 
 @Composable
 fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = Modifier) {
+
+    var foodQuantity by remember {
+        mutableStateOf("")
+    }
+
     Spacer(modifier = Modifier.height(10.dp))
     Row(
         modifier = modifier
@@ -67,7 +76,10 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.Bold
                 )
-                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                     Text(
                         text = "${item.caloriesPer100g} g",
                         textAlign = TextAlign.Center
@@ -87,7 +99,10 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
                     text = "${item.caloriesPer100g}kcal/100g", modifier = Modifier
                         .fillMaxWidth(0.5f)
                 )
-                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                     Text(
                         text = "Carbs",
                         modifier = Modifier.defaultMinSize(minWidth = 40.dp),
@@ -108,4 +123,5 @@ fun FoodItem(item: TrackableFood, onItemClick: () -> Unit, modifier: Modifier = 
         }
     }
     Spacer(modifier = Modifier.height(10.dp))
+
 }

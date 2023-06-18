@@ -2,8 +2,12 @@ package com.healthifyme.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import com.healthifyme.data.local.DefaultSharedPreferences
 import com.healthifyme.data.local.SharedPreferencesInterface
+import com.healthifyme.data.local.database.FoodDao
+import com.healthifyme.data.local.database.FoodDatabase
+import com.healthifyme.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +29,22 @@ object AppModule {
     @Singleton
     fun provideDefaultSharedPreferences(sharedPreferences: SharedPreferences): SharedPreferencesInterface {
         return DefaultSharedPreferences(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFoodDatabase(@ApplicationContext context: Context): FoodDatabase {
+        return Room.databaseBuilder(
+            context = context,
+            klass = FoodDatabase::class.java,
+            name = Constants.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFoodDao(database: FoodDatabase): FoodDao {
+        return database.provideFoodDao()
     }
 
 }

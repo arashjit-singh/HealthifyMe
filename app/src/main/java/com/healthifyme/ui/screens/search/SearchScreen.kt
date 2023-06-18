@@ -22,11 +22,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.healthifyme.R
 import com.healthifyme.ui.screens.search.components.FoodItem
 import com.healthifyme.ui.screens.search.components.SearchFoodField
-import timber.log.Timber
+import com.healthifyme.util.MealType
 
 @Composable
 fun SearchScreen(
     snackbarHostState: SnackbarHostState,
+    mealType: Int,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
     Column(
@@ -34,7 +35,7 @@ fun SearchScreen(
             .padding(start = 24.dp, top = 24.dp, end = 24.dp)
             .fillMaxSize()
     ) {
-        Text(text = stringResource(R.string.add_breakfast), fontSize = 24.sp)
+        Text(text = "Add ${MealType.fromType(mealType)}", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(10.dp))
         SearchFoodField(
             value = viewModel.userInput,
@@ -51,7 +52,7 @@ fun SearchScreen(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(viewModel.state.trackableFood) { food ->
                 FoodItem(food, onItemClick = {
-                    Timber.i("Item Clicked")
+                    viewModel.addItemToDatabase(food, mealType, 1)
                 })
             }
         }
@@ -61,7 +62,7 @@ fun SearchScreen(
         when {
             viewModel.state.isSearching -> CircularProgressIndicator()
             viewModel.state.trackableFood.isEmpty() -> {
-                Text(text = "No Food", textAlign = TextAlign.Center)
+                Text(text = stringResource(R.string.no_food), textAlign = TextAlign.Center)
             }
         }
     }

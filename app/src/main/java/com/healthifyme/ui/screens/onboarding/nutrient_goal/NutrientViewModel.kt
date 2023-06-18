@@ -1,6 +1,5 @@
 package com.healthifyme.ui.screens.onboarding.nutrient_goal
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -54,7 +53,9 @@ class NutrientViewModel @Inject constructor(private val sharedPreferences: Defau
 
     fun navigate() {
         if (validatePercentage()) {
-
+            viewModelScope.launch {
+                _uiEvent.send(UiEvent.NavigateUser)
+            }
         } else {
             Timber.i("Error")
             viewModelScope.launch {

@@ -32,16 +32,20 @@ import com.healthifyme.util.UiEvent
 @Composable
 fun NutrientGoalScreen(
     snackbarHostState: SnackbarHostState,
+    onNextClick: () -> Unit,
     viewModel: NutrientViewModel = hiltViewModel()
 ) {
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect {
             when (it) {
-                UiEvent.NavigateUser -> TODO()
+                UiEvent.NavigateUser -> {
+                    onNextClick()
+                }
+
                 is UiEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(
-                        message = "Error",
+                        message = "Please select correct nutrients level",
                         actionLabel = "",
                         withDismissAction = true,
                         duration = SnackbarDuration.Short

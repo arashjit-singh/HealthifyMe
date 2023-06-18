@@ -89,6 +89,17 @@ class DefaultSharedPreferences @Inject constructor(
         return sharedPreferences.getString(PREF_USER_CARBS_FATS, "30")!!
     }
 
+    override fun setOnBoardingShown(isOnboardingShown: Boolean) {
+        sharedPreferences.edit {
+            putBoolean(PREF_IS_ONBOARDING_SHOWN, isOnboardingShown)
+            commit()
+        }
+    }
+
+    override fun getIsOnBoardingShown(): Boolean {
+        return sharedPreferences.getBoolean(PREF_IS_ONBOARDING_SHOWN, false)
+    }
+
     companion object {
         const val PREF_GENDER = "prefGender"
         const val PREF_USER_WEIGHT = "prefWeight"
@@ -98,6 +109,8 @@ class DefaultSharedPreferences @Inject constructor(
         const val PREF_USER_CARBS_PERCENTAGE = "percentageCarbs"
         const val PREF_USER_CARBS_PROTEIN = "percentageProtein"
         const val PREF_USER_CARBS_FATS = "percentageFats"
+
+        const val PREF_IS_ONBOARDING_SHOWN = "prefIsOnboardingShown"
 
     }
 }

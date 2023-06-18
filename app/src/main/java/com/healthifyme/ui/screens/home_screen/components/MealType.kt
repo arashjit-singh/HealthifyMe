@@ -13,26 +13,41 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.healthifyme.R
+import com.healthifyme.ui.screens.search.SearchScreenViewModel
+import com.healthifyme.util.MealType
 
 @Composable
 fun MealType(
-    mealType: String,
+    mealType: MealType,
     mealImg: Int,
     contentDescription: String,
     showAddMealView: Boolean,
     onRowClick: () -> Unit,
+    onAddMealClick: (Int) -> Unit,
+    searchScreenViewModel: SearchScreenViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
+
+    LaunchedEffect(key1 = true) {
+        searchScreenViewModel.getAllFoods(mealType.type)
+    }
     Column(modifier = modifier) {
         Row(modifier = Modifier
             .clickable {
@@ -52,27 +67,36 @@ fun MealType(
                     .padding(start = 10.dp)
             ) {
                 Row() {
-                    Text(text = mealType, fontSize = 22.sp, modifier = Modifier.weight(1.0f))
+                    Text(
+                        text = mealType.toMeal(),
+                        fontSize = 22.sp,
+                        modifier = Modifier.weight(1.0f)
+                    )
                     Image(
                         painter = if (!showAddMealView)
                             painterResource(id = R.drawable.baseline_arrow_drop_down_24)
                         else
                             painterResource(id = R.drawable.baseline_arrow_drop_up_24),
-                        contentDescription = "Add ${mealType}"
+                        contentDescription = "Add ${mealType.toMeal()}"
                     )
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Row(
                         verticalAlignment = Alignment.Bottom, modifier = Modifier.weight(1f)
                     ) {
-                        Text(
-                            text = "0",
-                            fontSize = 22.sp,
-                        )
-                        Text(
-                            text = " Kcal",
-                            fontSize = 16.sp,
-                        )
+                        Text(fontSize = 18.sp,
+                            text = buildAnnotatedString {
+                                withStyle(
+                                    SpanStyle(
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Bold,
+                                    )
+                                ) {
+                                    append("0")
+                                }
+                                append(" ")
+                                append(stringResource(id = R.string.kcal))
+                            })
                     }
                     Row(modifier = Modifier.weight(2f)) {
                         CalorieCounter()
@@ -84,7 +108,7 @@ fun MealType(
         if (showAddMealView) {
             Column() {
                 Text(
-                    text = "+ Add ${mealType}",
+                    text = "+ Add ${mealType.toMeal()}",
                     fontSize = 20.sp,
                     modifier = Modifier
                         .padding(10.dp)
@@ -95,7 +119,10 @@ fun MealType(
                         )
                         .clipToBounds()
                         .fillMaxWidth()
-                        .padding(10.dp),
+                        .padding(10.dp)
+                        .clickable {
+                            onAddMealClick(mealType.type)
+                        },
                     color = Color.Green,
                     textAlign = TextAlign.Center
                 )
@@ -108,5 +135,5 @@ fun MealType(
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    MealType("Lunch", R.drawable.ic_lunch, "Food", true, {})
+    MealType(MealType.BREAKFAST, R.drawable.ic_lunch, "Food", true, {}, {})
 }

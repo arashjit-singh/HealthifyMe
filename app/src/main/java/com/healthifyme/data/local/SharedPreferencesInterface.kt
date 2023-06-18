@@ -22,4 +22,7 @@ interface SharedPreferencesInterface {
     fun getPercentageProteins(): String
     fun savePercentageFats(value: String)
     fun getPercentageFats(): String
+
+    fun setOnBoardingShown(isOnboardingShown: Boolean)
+    fun getIsOnBoardingShown(): Boolean
 }
